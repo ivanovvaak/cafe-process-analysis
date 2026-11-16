@@ -1,0 +1,263 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_Process_ToBe" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:collaboration id="Collab_Process_ToBe">
+    <bpmn:participant id="Pool_Process_ToBe" name="TO-BE: предзаказ на антракт во время запуска" processRef="Process_ToBe" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_ToBe" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Process_ToBe">
+      <bpmn:lane id="Lane_Guest2" name="Гость">
+        <bpmn:flowNodeRef>T_start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_buy</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_gwPre</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_endNo</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_pickup</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_endG</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Cashier2" name="Кассир">
+        <bpmn:flowNodeRef>T_gwSlot</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_pre</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_noSlot</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_endQ</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_stop</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Prep2" name="Помощник (второй буфетчик)">
+        <bpmn:flowNodeRef>T_timer</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_list</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_heat</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_shelf</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_give</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>T_endB</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="T_start" name="Гость на запуске">
+      <bpmn:outgoing>f_T_start_T_buy</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="T_buy" name="Совершить покупку">
+      <bpmn:incoming>f_T_start_T_buy</bpmn:incoming>
+      <bpmn:outgoing>f_T_buy_T_gwPre</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="T_gwPre" name="Нужен предзаказ на антракт?">
+      <bpmn:incoming>f_T_buy_T_gwPre</bpmn:incoming>
+      <bpmn:outgoing>f_T_gwPre_T_endNo</bpmn:outgoing>
+      <bpmn:outgoing>f_T_gwPre_T_gwSlot</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="T_endNo" name="Гость обслужен">
+      <bpmn:incoming>f_T_gwPre_T_endNo</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:exclusiveGateway id="T_gwSlot" name="Есть свободные слоты?">
+      <bpmn:incoming>f_T_gwPre_T_gwSlot</bpmn:incoming>
+      <bpmn:outgoing>f_T_gwSlot_T_pre</bpmn:outgoing>
+      <bpmn:outgoing>f_T_gwSlot_T_noSlot</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="T_pre" name="Оформить предзаказ, принять оплату, скомплектовать штучные товары">
+      <bpmn:incoming>f_T_gwSlot_T_pre</bpmn:incoming>
+      <bpmn:outgoing>f_T_pre_T_stop</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T_noSlot" name="Предложить покупку в антракт в общем порядке">
+      <bpmn:incoming>f_T_gwSlot_T_noSlot</bpmn:incoming>
+      <bpmn:outgoing>f_T_noSlot_T_endQ</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="T_endQ" name="Покупка в общем порядке">
+      <bpmn:incoming>f_T_noSlot_T_endQ</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="T_stop" name="Обновить остаток слотов и стоп-лист">
+      <bpmn:incoming>f_T_pre_T_stop</bpmn:incoming>
+      <bpmn:outgoing>f_T_stop_T_timer</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:intermediateCatchEvent id="T_timer" name="За 10 мин до антракта">
+      <bpmn:incoming>f_T_stop_T_timer</bpmn:incoming>
+      <bpmn:outgoing>f_T_timer_T_list</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TD_T_timer" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:task id="T_list" name="Получить лист сборки предзаказов">
+      <bpmn:incoming>f_T_timer_T_list</bpmn:incoming>
+      <bpmn:outgoing>f_T_list_T_heat</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T_heat" name="Приготовить позиции и укомплектовать заказы">
+      <bpmn:incoming>f_T_list_T_heat</bpmn:incoming>
+      <bpmn:outgoing>f_T_heat_T_shelf</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T_shelf" name="Разместить заказы в зоне выдачи">
+      <bpmn:incoming>f_T_heat_T_shelf</bpmn:incoming>
+      <bpmn:outgoing>f_T_shelf_T_give</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="T_give" name="Выдать заказ по номеру чека">
+      <bpmn:incoming>f_T_shelf_T_give</bpmn:incoming>
+      <bpmn:outgoing>f_T_give_T_endB</bpmn:outgoing>
+      <bpmn:outgoing>f_T_give_T_pickup</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="T_endB" name="Предзаказы выданы">
+      <bpmn:incoming>f_T_give_T_endB</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="T_pickup" name="Получить предзаказ без очереди">
+      <bpmn:incoming>f_T_give_T_pickup</bpmn:incoming>
+      <bpmn:outgoing>f_T_pickup_T_endG</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="T_endG" name="Гость обслужен">
+      <bpmn:incoming>f_T_pickup_T_endG</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="f_T_start_T_buy" sourceRef="T_start" targetRef="T_buy" />
+    <bpmn:sequenceFlow id="f_T_buy_T_gwPre" sourceRef="T_buy" targetRef="T_gwPre" />
+    <bpmn:sequenceFlow id="f_T_gwPre_T_endNo" name="нет" sourceRef="T_gwPre" targetRef="T_endNo" />
+    <bpmn:sequenceFlow id="f_T_gwPre_T_gwSlot" name="да" sourceRef="T_gwPre" targetRef="T_gwSlot" />
+    <bpmn:sequenceFlow id="f_T_gwSlot_T_pre" name="да" sourceRef="T_gwSlot" targetRef="T_pre" />
+    <bpmn:sequenceFlow id="f_T_gwSlot_T_noSlot" name="нет" sourceRef="T_gwSlot" targetRef="T_noSlot" />
+    <bpmn:sequenceFlow id="f_T_noSlot_T_endQ" sourceRef="T_noSlot" targetRef="T_endQ" />
+    <bpmn:sequenceFlow id="f_T_pre_T_stop" sourceRef="T_pre" targetRef="T_stop" />
+    <bpmn:sequenceFlow id="f_T_stop_T_timer" sourceRef="T_stop" targetRef="T_timer" />
+    <bpmn:sequenceFlow id="f_T_timer_T_list" sourceRef="T_timer" targetRef="T_list" />
+    <bpmn:sequenceFlow id="f_T_list_T_heat" sourceRef="T_list" targetRef="T_heat" />
+    <bpmn:sequenceFlow id="f_T_heat_T_shelf" sourceRef="T_heat" targetRef="T_shelf" />
+    <bpmn:sequenceFlow id="f_T_shelf_T_give" sourceRef="T_shelf" targetRef="T_give" />
+    <bpmn:sequenceFlow id="f_T_give_T_endB" sourceRef="T_give" targetRef="T_endB" />
+    <bpmn:sequenceFlow id="f_T_give_T_pickup" sourceRef="T_give" targetRef="T_pickup" />
+    <bpmn:sequenceFlow id="f_T_pickup_T_endG" sourceRef="T_pickup" targetRef="T_endG" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diag_Process_ToBe">
+    <bpmndi:BPMNPlane id="Plane_Process_ToBe" bpmnElement="Collab_Process_ToBe">
+      <bpmndi:BPMNShape id="Pool_Process_ToBe_di" bpmnElement="Pool_Process_ToBe" isHorizontal="true">
+        <dc:Bounds x="0" y="20" width="1848.0" height="600" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Guest2_di" bpmnElement="Lane_Guest2" isHorizontal="true">
+        <dc:Bounds x="30" y="20" width="1818.0" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Cashier2_di" bpmnElement="Lane_Cashier2" isHorizontal="true">
+        <dc:Bounds x="30" y="220" width="1818.0" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Prep2_di" bpmnElement="Lane_Prep2" isHorizontal="true">
+        <dc:Bounds x="30" y="420" width="1818.0" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_start_di" bpmnElement="T_start">
+        <dc:Bounds x="102" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="65" y="142" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_buy_di" bpmnElement="T_buy">
+        <dc:Bounds x="220" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_gwPre_di" bpmnElement="T_gwPre" isMarkerVisible="true">
+        <dc:Bounds x="425" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="481" y="106" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_endNo_di" bpmnElement="T_endNo">
+        <dc:Bounds x="432" y="40" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="474" y="44" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_gwSlot_di" bpmnElement="T_gwSlot" isMarkerVisible="true">
+        <dc:Bounds x="425" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="309" y="306" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_pre_di" bpmnElement="T_pre">
+        <dc:Bounds x="550" y="243" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_noSlot_di" bpmnElement="T_noSlot">
+        <dc:Bounds x="550" y="338" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_endQ_di" bpmnElement="T_endQ">
+        <dc:Bounds x="762" y="352" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="804" y="356" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_stop_di" bpmnElement="T_stop">
+        <dc:Bounds x="715" y="243" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_timer_di" bpmnElement="T_timer">
+        <dc:Bounds x="927" y="502" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="890" y="542" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_list_di" bpmnElement="T_list">
+        <dc:Bounds x="1045" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_heat_di" bpmnElement="T_heat">
+        <dc:Bounds x="1210" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_shelf_di" bpmnElement="T_shelf">
+        <dc:Bounds x="1375" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_give_di" bpmnElement="T_give">
+        <dc:Bounds x="1540" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_endB_di" bpmnElement="T_endB">
+        <dc:Bounds x="1752" y="502" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1715" y="542" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_pickup_di" bpmnElement="T_pickup">
+        <dc:Bounds x="1540" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="T_endG_di" bpmnElement="T_endG">
+        <dc:Bounds x="1752" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1715" y="142" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f_T_start_T_buy_di" bpmnElement="f_T_start_T_buy">
+        <di:waypoint x="138" y="120" />
+        <di:waypoint x="220" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_buy_T_gwPre_di" bpmnElement="f_T_buy_T_gwPre">
+        <di:waypoint x="350" y="120" />
+        <di:waypoint x="425" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_gwPre_T_endNo_di" bpmnElement="f_T_gwPre_T_endNo">
+        <di:waypoint x="450" y="95" />
+        <di:waypoint x="450" y="76" />
+        <bpmndi:BPMNLabel><dc:Bounds x="456" y="77" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_gwPre_T_gwSlot_di" bpmnElement="f_T_gwPre_T_gwSlot">
+        <di:waypoint x="450" y="145" />
+        <di:waypoint x="450" y="295" />
+        <bpmndi:BPMNLabel><dc:Bounds x="456" y="127" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_gwSlot_T_pre_di" bpmnElement="f_T_gwSlot_T_pre">
+        <di:waypoint x="475" y="320" />
+        <di:waypoint x="512" y="320" />
+        <di:waypoint x="512" y="275" />
+        <di:waypoint x="550" y="275" />
+        <bpmndi:BPMNLabel><dc:Bounds x="481" y="302" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_gwSlot_T_noSlot_di" bpmnElement="f_T_gwSlot_T_noSlot">
+        <di:waypoint x="450" y="345" />
+        <di:waypoint x="450" y="370" />
+        <di:waypoint x="550" y="370" />
+        <bpmndi:BPMNLabel><dc:Bounds x="456" y="327" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_noSlot_T_endQ_di" bpmnElement="f_T_noSlot_T_endQ">
+        <di:waypoint x="680" y="370" />
+        <di:waypoint x="762" y="370" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_pre_T_stop_di" bpmnElement="f_T_pre_T_stop">
+        <di:waypoint x="680" y="275" />
+        <di:waypoint x="715" y="275" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_stop_T_timer_di" bpmnElement="f_T_stop_T_timer">
+        <di:waypoint x="845" y="275" />
+        <di:waypoint x="945" y="275" />
+        <di:waypoint x="945" y="502" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_timer_T_list_di" bpmnElement="f_T_timer_T_list">
+        <di:waypoint x="963" y="520" />
+        <di:waypoint x="1045" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_list_T_heat_di" bpmnElement="f_T_list_T_heat">
+        <di:waypoint x="1175" y="520" />
+        <di:waypoint x="1210" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_heat_T_shelf_di" bpmnElement="f_T_heat_T_shelf">
+        <di:waypoint x="1340" y="520" />
+        <di:waypoint x="1375" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_shelf_T_give_di" bpmnElement="f_T_shelf_T_give">
+        <di:waypoint x="1505" y="520" />
+        <di:waypoint x="1540" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_give_T_endB_di" bpmnElement="f_T_give_T_endB">
+        <di:waypoint x="1670" y="520" />
+        <di:waypoint x="1752" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_give_T_pickup_di" bpmnElement="f_T_give_T_pickup">
+        <di:waypoint x="1605" y="488" />
+        <di:waypoint x="1605" y="152" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_T_pickup_T_endG_di" bpmnElement="f_T_pickup_T_endG">
+        <di:waypoint x="1670" y="120" />
+        <di:waypoint x="1752" y="120" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

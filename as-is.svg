@@ -1,0 +1,164 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 2673 784" width="2673" height="784" font-family="Helvetica, Arial, sans-serif">
+<defs><marker id="arr" viewBox="0 0 10 10" refX="10" refY="5" markerWidth="8" markerHeight="8" orient="auto-start-reverse"><path d="M0,0 L10,5 L0,10 z" fill="#333"/></marker></defs>
+<rect x="0" y="0" width="2673" height="784" fill="#ffffff"/>
+<rect x="0.5" y="20.5" width="2672" height="600" fill="none" stroke="#333" stroke-width="1.5"/>
+<line x1="30" y1="20" x2="30" y2="620" stroke="#333" stroke-width="1.5"/>
+<text x="15.0" y="320.0" transform="rotate(-90 15.0 320.0)" text-anchor="middle" dominant-baseline="middle" font-size="13" font-weight="bold">AS-IS: продажа в антракт</text>
+<rect x="30" y="20" width="2643" height="200" fill="#FAFAFA" stroke="#333" stroke-width="1"/>
+<line x1="60" y1="20" x2="60" y2="220" stroke="#333"/>
+<text x="45.0" y="120.0" transform="rotate(-90 45.0 120.0)" text-anchor="middle" dominant-baseline="middle" font-size="13">Гость</text>
+<rect x="30" y="220" width="2643" height="200" fill="#F3F5F8" stroke="#333" stroke-width="1"/>
+<line x1="60" y1="220" x2="60" y2="420" stroke="#333"/>
+<text x="45.0" y="320.0" transform="rotate(-90 45.0 320.0)" text-anchor="middle" dominant-baseline="middle" font-size="13">Кассир</text>
+<rect x="30" y="420" width="2643" height="200" fill="#FAFAFA" stroke="#333" stroke-width="1"/>
+<line x1="60" y1="420" x2="60" y2="620" stroke="#333"/>
+<text x="45.0" y="520.0" transform="rotate(-90 45.0 520.0)" text-anchor="middle" dominant-baseline="middle" font-size="13">Помощник (второй буфетчик)</text>
+<path d="M138.0,120.0 L220.0,120.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M350.0,120.0 L425.0,120.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M450.0,95.0 L450.0,76.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="456" y="89" font-size="11" fill="#333">нет</text>
+<path d="M475.0,120.0 L550.0,120.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="483" y="114" font-size="11" fill="#333">да</text>
+<path d="M615.0,152.0 L615.0,488.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M680.0,520.0 L755.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M780.0,495.0 L780.0,138.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="786" y="489" font-size="11" fill="#333">нет</text>
+<path d="M805.0,520.0 L920.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="813" y="514" font-size="11" fill="#333">да</text>
+<path d="M945.0,495.0 L945.0,465.0 L1045.0,465.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M970.0,520.0 L1250.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1175.0,465.0 L1275.0,465.0 L1275.0,352.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1275.0,545.0 L1275.0,564.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="1281" y="559" font-size="11" fill="#333">нет</text>
+<path d="M1300.0,520.0 L1375.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="1308" y="514" font-size="11" fill="#333">да</text>
+<path d="M1505.0,520.0 L2240.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1340.0,320.0 L1415.0,320.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1440.0,295.0 L1440.0,275.0 L1540.0,275.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="1446" y="289" font-size="11" fill="#333">наличные</text>
+<path d="M1440.0,345.0 L1440.0,365.0 L1540.0,365.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="1446" y="359" font-size="11" fill="#333">карта / QR</text>
+<path d="M1670.0,275.0 L1770.0,275.0 L1770.0,295.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1670.0,365.0 L1770.0,365.0 L1770.0,345.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1795.0,320.0 L1870.0,320.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2000.0,320.0 L2082.0,320.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M1935.0,288.0 L1935.0,152.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2000.0,120.0 L2075.0,120.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2100.0,95.0 L2100.0,76.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="2106" y="89" font-size="11" fill="#333">нет</text>
+<path d="M2125.0,120.0 L2200.0,120.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<text x="2133" y="114" font-size="11" fill="#333">да</text>
+<path d="M2265.0,152.0 L2265.0,495.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2290.0,520.0 L2365.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2430.0,488.0 L2430.0,152.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2495.0,120.0 L2577.0,120.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<path d="M2495.0,520.0 L2577.0,520.0" fill="none" stroke="#333" stroke-width="1.3" marker-end="url(#arr)"/>
+<circle cx="120" cy="120.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="120" y="152.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Начало антракта</text>
+<rect x="220" y="88" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="285" y="120.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Встать в очередь</text>
+<polygon points="450,95.0 475.0,120.0 450,145.0 425.0,120.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M442,112.0 L458,128.0 M458,112.0 L442,128.0" stroke="#333" stroke-width="2.5"/>
+<text x="450" y="159.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Успевает до конца</text>
+<text x="450" y="171.6" text-anchor="middle" dominant-baseline="middle" font-size="10.5">антракта?</text>
+<circle cx="450" cy="58.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="474" y="51.7" text-anchor="start" dominant-baseline="middle" font-size="10.5">Отказ от покупки:</text>
+<text x="474" y="64.3" text-anchor="start" dominant-baseline="middle" font-size="10.5">не успел</text>
+<rect x="550" y="88" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="615" y="120.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Озвучить заказ</text>
+<circle cx="780" cy="120.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="804" y="107.4" text-anchor="start" dominant-baseline="middle" font-size="10.5">Отказ от покупки:</text>
+<text x="804" y="120.0" text-anchor="start" dominant-baseline="middle" font-size="10.5">позиции нет в</text>
+<text x="804" y="132.6" text-anchor="start" dominant-baseline="middle" font-size="10.5">наличии</text>
+<rect x="1870" y="88" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1935" y="113.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Получить чек и</text>
+<text x="1935" y="126.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">штучные товары</text>
+<polygon points="2100,95.0 2125.0,120.0 2100,145.0 2075.0,120.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M2092,112.0 L2108,128.0 M2108,112.0 L2092,128.0" stroke="#333" stroke-width="2.5"/>
+<text x="2100" y="159.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Есть позиции для</text>
+<text x="2100" y="171.6" text-anchor="middle" dominant-baseline="middle" font-size="10.5">приготовления?</text>
+<circle cx="2100" cy="58.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="2124" y="58.0" text-anchor="start" dominant-baseline="middle" font-size="10.5">Гость обслужен</text>
+<rect x="2200" y="88" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="2265" y="113.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Ожидать заказ в</text>
+<text x="2265" y="126.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">зоне выдачи</text>
+<rect x="2365" y="88" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="2430" y="120.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Получить заказ</text>
+<circle cx="2595" cy="120.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="2595" y="152.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Гость обслужен</text>
+<rect x="550" y="488" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="615" y="506.2" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Принять заказ</text>
+<text x="615" y="520.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5">следующего гостя</text>
+<text x="615" y="533.8" text-anchor="middle" dominant-baseline="middle" font-size="11.5">(опережающий приём)</text>
+<polygon points="780,495.0 805.0,520.0 780,545.0 755.0,520.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M772,512.0 L788,528.0 M788,512.0 L772,528.0" stroke="#333" stroke-width="2.5"/>
+<text x="780" y="559.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Позиции в наличии?</text>
+<polygon points="945,495.0 970.0,520.0 945,545.0 920.0,520.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M945,509.0 L945,531.0 M934,520.0 L956,520.0" stroke="#333" stroke-width="2.5"/>
+<rect x="1045" y="433" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1110" y="458.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Передать кассиру</text>
+<text x="1110" y="471.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">штучные товары</text>
+<polygon points="1275,495.0 1300.0,520.0 1275,545.0 1250.0,520.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M1267,512.0 L1283,528.0 M1283,512.0 L1267,528.0" stroke="#333" stroke-width="2.5"/>
+<text x="1275" y="474.4" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Есть позиции для</text>
+<text x="1275" y="487.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">приготовления?</text>
+<circle cx="1275" cy="582.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="1299" y="575.7" text-anchor="start" dominant-baseline="middle" font-size="10.5">Приготовление не</text>
+<text x="1299" y="588.3" text-anchor="start" dominant-baseline="middle" font-size="10.5">требуется</text>
+<rect x="1375" y="488" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1440" y="506.2" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Приготовить позиции</text>
+<text x="1440" y="520.0" text-anchor="middle" dominant-baseline="middle" font-size="11.5">(разогрев, кофе,</text>
+<text x="1440" y="533.8" text-anchor="middle" dominant-baseline="middle" font-size="11.5">чай)</text>
+<polygon points="2265,495.0 2290.0,520.0 2265,545.0 2240.0,520.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M2265,509.0 L2265,531.0 M2254,520.0 L2276,520.0" stroke="#333" stroke-width="2.5"/>
+<text x="2265" y="559.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Заказ готов и</text>
+<text x="2265" y="571.6" text-anchor="middle" dominant-baseline="middle" font-size="10.5">оплачен</text>
+<rect x="2365" y="488" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="2430" y="513.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Выдать заказ по</text>
+<text x="2430" y="526.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">чеку</text>
+<circle cx="2595" cy="520.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="2595" y="552.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Заказ выдан</text>
+<rect x="1210" y="288" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1275" y="299.3" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Сформировать чек в</text>
+<text x="1275" y="313.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">R-Keeper,</text>
+<text x="1275" y="326.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">отсканировать</text>
+<text x="1275" y="340.7" text-anchor="middle" dominant-baseline="middle" font-size="11.5">маркировку</text>
+<polygon points="1440,295.0 1465.0,320.0 1440,345.0 1415.0,320.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M1432,312.0 L1448,328.0 M1448,312.0 L1432,328.0" stroke="#333" stroke-width="2.5"/>
+<text x="1471" y="320.0" text-anchor="start" dominant-baseline="middle" font-size="10.5">Способ оплаты</text>
+<rect x="1540" y="243" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1605" y="268.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Принять оплату</text>
+<text x="1605" y="281.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">наличными</text>
+<rect x="1540" y="333" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1605" y="358.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Принять оплату</text>
+<text x="1605" y="371.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">картой / по QR</text>
+<polygon points="1770,295.0 1795.0,320.0 1770,345.0 1745.0,320.0" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<path d="M1762,312.0 L1778,328.0 M1778,312.0 L1762,328.0" stroke="#333" stroke-width="2.5"/>
+<rect x="1870" y="288" width="130" height="64" rx="10" fill="#FFFFFF" stroke="#333" stroke-width="1.5"/>
+<text x="1935" y="313.1" text-anchor="middle" dominant-baseline="middle" font-size="11.5">Выдать чек и</text>
+<text x="1935" y="326.9" text-anchor="middle" dominant-baseline="middle" font-size="11.5">штучные товары</text>
+<circle cx="2100" cy="320.0" r="18.0" fill="#FFFFFF" stroke="#333" stroke-width="4"/>
+<text x="2100" y="352.0" text-anchor="middle" dominant-baseline="middle" font-size="10.5">Переход к следующему</text>
+<text x="2100" y="364.6" text-anchor="middle" dominant-baseline="middle" font-size="10.5">гостю</text>
+<circle cx="348" cy="90" r="11" fill="#D64545"/>
+<text x="348" y="94" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">1</text>
+<circle cx="1503" cy="490" r="11" fill="#D64545"/>
+<text x="1503" y="494" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">2</text>
+<circle cx="803" cy="497" r="11" fill="#D64545"/>
+<text x="803" y="501" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">3</text>
+<circle cx="1668" cy="245" r="11" fill="#D64545"/>
+<text x="1668" y="249" text-anchor="middle" font-size="12" font-weight="bold" fill="#fff">4</text>
+<text x="10" y="650" font-size="13" font-weight="bold">Проблемы процесса</text>
+<circle cx="21" cy="672" r="10" fill="#D64545"/>
+<text x="21" y="676" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">1</text>
+<text x="40" y="676" font-size="12.5">Пиковая нагрузка: интенсивность спроса в антракт в 3 раза выше, чем на запуске; очередь 40+ человек, часть гостей уходит</text>
+<circle cx="21" cy="698" r="10" fill="#D64545"/>
+<text x="21" y="702" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">2</text>
+<text x="40" y="702" font-size="12.5">Узкое место: оборудование для приготовления (1 кофемашина, от 2 мин на напиток; 1 микроволновка, до 5 шт за цикл)</text>
+<circle cx="21" cy="724" r="10" fill="#D64545"/>
+<text x="21" y="728" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">3</text>
+<text x="40" y="728" font-size="12.5">Дефицит выпечки обнаруживается только при приёме заказа, гости в очереди не информированы</text>
+<circle cx="21" cy="750" r="10" fill="#D64545"/>
+<text x="21" y="754" text-anchor="middle" font-size="11" font-weight="bold" fill="#fff">4</text>
+<text x="40" y="754" font-size="12.5">~40% оплат наличными, в пик не хватает размена, что приводит к недостачам</text>
+</svg>

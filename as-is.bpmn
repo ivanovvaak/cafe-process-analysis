@@ -1,0 +1,484 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" id="Defs_Process_AsIs" targetNamespace="http://bpmn.io/schema/bpmn">
+  <bpmn:collaboration id="Collab_Process_AsIs">
+    <bpmn:participant id="Pool_Process_AsIs" name="AS-IS: продажа в антракт" processRef="Process_AsIs" />
+  </bpmn:collaboration>
+  <bpmn:process id="Process_AsIs" isExecutable="false">
+    <bpmn:laneSet id="LaneSet_Process_AsIs">
+      <bpmn:lane id="Lane_Guest" name="Гость">
+        <bpmn:flowNodeRef>A_start</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_queue</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_gwWait</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_left1</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_name</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_left2</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_take</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_gwHot</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_endNoHot</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_wait</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_get</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>A_endG</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Cashier" name="Кассир">
+        <bpmn:flowNodeRef>K_punch</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>K_gwPay</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>K_cash</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>K_card</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>K_join</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>K_receipt</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>K_end</bpmn:flowNodeRef>
+      </bpmn:lane>
+      <bpmn:lane id="Lane_Prep" name="Помощник (второй буфетчик)">
+        <bpmn:flowNodeRef>B_ask</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_gwStock</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_split</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_shelf</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_gwHot</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_noHot</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_heat</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_and</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_give</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>B_end</bpmn:flowNodeRef>
+      </bpmn:lane>
+    </bpmn:laneSet>
+    <bpmn:startEvent id="A_start" name="Начало антракта">
+      <bpmn:outgoing>f_A_start_A_queue</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:task id="A_queue" name="Встать в очередь">
+      <bpmn:incoming>f_A_start_A_queue</bpmn:incoming>
+      <bpmn:outgoing>f_A_queue_A_gwWait</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="A_gwWait" name="Успевает до конца антракта?">
+      <bpmn:incoming>f_A_queue_A_gwWait</bpmn:incoming>
+      <bpmn:outgoing>f_A_gwWait_A_left1</bpmn:outgoing>
+      <bpmn:outgoing>f_A_gwWait_A_name</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="A_left1" name="Отказ от покупки: не успел">
+      <bpmn:incoming>f_A_gwWait_A_left1</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="A_name" name="Озвучить заказ">
+      <bpmn:incoming>f_A_gwWait_A_name</bpmn:incoming>
+      <bpmn:outgoing>f_A_name_B_ask</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="A_left2" name="Отказ от покупки: позиции нет в наличии">
+      <bpmn:incoming>f_B_gwStock_A_left2</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="A_take" name="Получить чек и штучные товары">
+      <bpmn:incoming>f_K_receipt_A_take</bpmn:incoming>
+      <bpmn:outgoing>f_A_take_A_gwHot</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="A_gwHot" name="Есть позиции для приготовления?">
+      <bpmn:incoming>f_A_take_A_gwHot</bpmn:incoming>
+      <bpmn:outgoing>f_A_gwHot_A_endNoHot</bpmn:outgoing>
+      <bpmn:outgoing>f_A_gwHot_A_wait</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="A_endNoHot" name="Гость обслужен">
+      <bpmn:incoming>f_A_gwHot_A_endNoHot</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="A_wait" name="Ожидать заказ в зоне выдачи">
+      <bpmn:incoming>f_A_gwHot_A_wait</bpmn:incoming>
+      <bpmn:outgoing>f_A_wait_B_and</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="A_get" name="Получить заказ">
+      <bpmn:incoming>f_B_give_A_get</bpmn:incoming>
+      <bpmn:outgoing>f_A_get_A_endG</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="A_endG" name="Гость обслужен">
+      <bpmn:incoming>f_A_get_A_endG</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="B_ask" name="Принять заказ следующего гостя (опережающий приём)">
+      <bpmn:incoming>f_A_name_B_ask</bpmn:incoming>
+      <bpmn:outgoing>f_B_ask_B_gwStock</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="B_gwStock" name="Позиции в наличии?">
+      <bpmn:incoming>f_B_ask_B_gwStock</bpmn:incoming>
+      <bpmn:outgoing>f_B_gwStock_A_left2</bpmn:outgoing>
+      <bpmn:outgoing>f_B_gwStock_B_split</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:parallelGateway id="B_split" name="">
+      <bpmn:incoming>f_B_gwStock_B_split</bpmn:incoming>
+      <bpmn:outgoing>f_B_split_B_shelf</bpmn:outgoing>
+      <bpmn:outgoing>f_B_split_B_gwHot</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="B_shelf" name="Передать кассиру штучные товары">
+      <bpmn:incoming>f_B_split_B_shelf</bpmn:incoming>
+      <bpmn:outgoing>f_B_shelf_K_punch</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="B_gwHot" name="Есть позиции для приготовления?">
+      <bpmn:incoming>f_B_split_B_gwHot</bpmn:incoming>
+      <bpmn:outgoing>f_B_gwHot_B_noHot</bpmn:outgoing>
+      <bpmn:outgoing>f_B_gwHot_B_heat</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:endEvent id="B_noHot" name="Приготовление не требуется">
+      <bpmn:incoming>f_B_gwHot_B_noHot</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="B_heat" name="Приготовить позиции (разогрев, кофе, чай)">
+      <bpmn:incoming>f_B_gwHot_B_heat</bpmn:incoming>
+      <bpmn:outgoing>f_B_heat_B_and</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:parallelGateway id="B_and" name="Заказ готов и оплачен">
+      <bpmn:incoming>f_B_heat_B_and</bpmn:incoming>
+      <bpmn:incoming>f_A_wait_B_and</bpmn:incoming>
+      <bpmn:outgoing>f_B_and_B_give</bpmn:outgoing>
+    </bpmn:parallelGateway>
+    <bpmn:task id="B_give" name="Выдать заказ по чеку">
+      <bpmn:incoming>f_B_and_B_give</bpmn:incoming>
+      <bpmn:outgoing>f_B_give_A_get</bpmn:outgoing>
+      <bpmn:outgoing>f_B_give_B_end</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="B_end" name="Заказ выдан">
+      <bpmn:incoming>f_B_give_B_end</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:task id="K_punch" name="Сформировать чек в R-Keeper, отсканировать маркировку">
+      <bpmn:incoming>f_B_shelf_K_punch</bpmn:incoming>
+      <bpmn:outgoing>f_K_punch_K_gwPay</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="K_gwPay" name="Способ оплаты">
+      <bpmn:incoming>f_K_punch_K_gwPay</bpmn:incoming>
+      <bpmn:outgoing>f_K_gwPay_K_cash</bpmn:outgoing>
+      <bpmn:outgoing>f_K_gwPay_K_card</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="K_cash" name="Принять оплату наличными">
+      <bpmn:incoming>f_K_gwPay_K_cash</bpmn:incoming>
+      <bpmn:outgoing>f_K_cash_K_join</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:task id="K_card" name="Принять оплату картой / по QR">
+      <bpmn:incoming>f_K_gwPay_K_card</bpmn:incoming>
+      <bpmn:outgoing>f_K_card_K_join</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:exclusiveGateway id="K_join" name="">
+      <bpmn:incoming>f_K_cash_K_join</bpmn:incoming>
+      <bpmn:incoming>f_K_card_K_join</bpmn:incoming>
+      <bpmn:outgoing>f_K_join_K_receipt</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:task id="K_receipt" name="Выдать чек и штучные товары">
+      <bpmn:incoming>f_K_join_K_receipt</bpmn:incoming>
+      <bpmn:outgoing>f_K_receipt_K_end</bpmn:outgoing>
+      <bpmn:outgoing>f_K_receipt_A_take</bpmn:outgoing>
+    </bpmn:task>
+    <bpmn:endEvent id="K_end" name="Переход к следующему гостю">
+      <bpmn:incoming>f_K_receipt_K_end</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="f_A_start_A_queue" sourceRef="A_start" targetRef="A_queue" />
+    <bpmn:sequenceFlow id="f_A_queue_A_gwWait" sourceRef="A_queue" targetRef="A_gwWait" />
+    <bpmn:sequenceFlow id="f_A_gwWait_A_left1" name="нет" sourceRef="A_gwWait" targetRef="A_left1" />
+    <bpmn:sequenceFlow id="f_A_gwWait_A_name" name="да" sourceRef="A_gwWait" targetRef="A_name" />
+    <bpmn:sequenceFlow id="f_A_name_B_ask" sourceRef="A_name" targetRef="B_ask" />
+    <bpmn:sequenceFlow id="f_B_ask_B_gwStock" sourceRef="B_ask" targetRef="B_gwStock" />
+    <bpmn:sequenceFlow id="f_B_gwStock_A_left2" name="нет" sourceRef="B_gwStock" targetRef="A_left2" />
+    <bpmn:sequenceFlow id="f_B_gwStock_B_split" name="да" sourceRef="B_gwStock" targetRef="B_split" />
+    <bpmn:sequenceFlow id="f_B_split_B_shelf" sourceRef="B_split" targetRef="B_shelf" />
+    <bpmn:sequenceFlow id="f_B_split_B_gwHot" sourceRef="B_split" targetRef="B_gwHot" />
+    <bpmn:sequenceFlow id="f_B_shelf_K_punch" sourceRef="B_shelf" targetRef="K_punch" />
+    <bpmn:sequenceFlow id="f_B_gwHot_B_noHot" name="нет" sourceRef="B_gwHot" targetRef="B_noHot" />
+    <bpmn:sequenceFlow id="f_B_gwHot_B_heat" name="да" sourceRef="B_gwHot" targetRef="B_heat" />
+    <bpmn:sequenceFlow id="f_B_heat_B_and" sourceRef="B_heat" targetRef="B_and" />
+    <bpmn:sequenceFlow id="f_K_punch_K_gwPay" sourceRef="K_punch" targetRef="K_gwPay" />
+    <bpmn:sequenceFlow id="f_K_gwPay_K_cash" name="наличные" sourceRef="K_gwPay" targetRef="K_cash" />
+    <bpmn:sequenceFlow id="f_K_gwPay_K_card" name="карта / QR" sourceRef="K_gwPay" targetRef="K_card" />
+    <bpmn:sequenceFlow id="f_K_cash_K_join" sourceRef="K_cash" targetRef="K_join" />
+    <bpmn:sequenceFlow id="f_K_card_K_join" sourceRef="K_card" targetRef="K_join" />
+    <bpmn:sequenceFlow id="f_K_join_K_receipt" sourceRef="K_join" targetRef="K_receipt" />
+    <bpmn:sequenceFlow id="f_K_receipt_K_end" sourceRef="K_receipt" targetRef="K_end" />
+    <bpmn:sequenceFlow id="f_K_receipt_A_take" sourceRef="K_receipt" targetRef="A_take" />
+    <bpmn:sequenceFlow id="f_A_take_A_gwHot" sourceRef="A_take" targetRef="A_gwHot" />
+    <bpmn:sequenceFlow id="f_A_gwHot_A_endNoHot" name="нет" sourceRef="A_gwHot" targetRef="A_endNoHot" />
+    <bpmn:sequenceFlow id="f_A_gwHot_A_wait" name="да" sourceRef="A_gwHot" targetRef="A_wait" />
+    <bpmn:sequenceFlow id="f_A_wait_B_and" sourceRef="A_wait" targetRef="B_and" />
+    <bpmn:sequenceFlow id="f_B_and_B_give" sourceRef="B_and" targetRef="B_give" />
+    <bpmn:sequenceFlow id="f_B_give_A_get" sourceRef="B_give" targetRef="A_get" />
+    <bpmn:sequenceFlow id="f_A_get_A_endG" sourceRef="A_get" targetRef="A_endG" />
+    <bpmn:sequenceFlow id="f_B_give_B_end" sourceRef="B_give" targetRef="B_end" />
+    <bpmn:textAnnotation id="Ann_1"><bpmn:text>Проблема 1: Пиковая нагрузка: интенсивность спроса в антракт в 3 раза выше, чем на запуске; очередь 40+ человек, часть гостей уходит</bpmn:text></bpmn:textAnnotation>
+    <bpmn:association id="Assoc_1" sourceRef="A_queue" targetRef="Ann_1" />
+    <bpmn:textAnnotation id="Ann_2"><bpmn:text>Проблема 2: Узкое место: оборудование для приготовления (1 кофемашина, от 2 мин на напиток; 1 микроволновка, до 5 шт за цикл)</bpmn:text></bpmn:textAnnotation>
+    <bpmn:association id="Assoc_2" sourceRef="B_heat" targetRef="Ann_2" />
+    <bpmn:textAnnotation id="Ann_3"><bpmn:text>Проблема 3: Дефицит выпечки обнаруживается только при приёме заказа, гости в очереди не информированы</bpmn:text></bpmn:textAnnotation>
+    <bpmn:association id="Assoc_3" sourceRef="B_gwStock" targetRef="Ann_3" />
+    <bpmn:textAnnotation id="Ann_4"><bpmn:text>Проблема 4: ~40% оплат наличными, в пик не хватает размена, что приводит к недостачам</bpmn:text></bpmn:textAnnotation>
+    <bpmn:association id="Assoc_4" sourceRef="K_cash" targetRef="Ann_4" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="Diag_Process_AsIs">
+    <bpmndi:BPMNPlane id="Plane_Process_AsIs" bpmnElement="Collab_Process_AsIs">
+      <bpmndi:BPMNShape id="Pool_Process_AsIs_di" bpmnElement="Pool_Process_AsIs" isHorizontal="true">
+        <dc:Bounds x="0" y="20" width="2673.0" height="600" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Guest_di" bpmnElement="Lane_Guest" isHorizontal="true">
+        <dc:Bounds x="30" y="20" width="2643.0" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Cashier_di" bpmnElement="Lane_Cashier" isHorizontal="true">
+        <dc:Bounds x="30" y="220" width="2643.0" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Lane_Prep_di" bpmnElement="Lane_Prep" isHorizontal="true">
+        <dc:Bounds x="30" y="420" width="2643.0" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_start_di" bpmnElement="A_start">
+        <dc:Bounds x="102" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="65" y="142" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_queue_di" bpmnElement="A_queue">
+        <dc:Bounds x="220" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_gwWait_di" bpmnElement="A_gwWait" isMarkerVisible="true">
+        <dc:Bounds x="425" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="395" y="149" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_left1_di" bpmnElement="A_left1">
+        <dc:Bounds x="432" y="40" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="474" y="44" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_name_di" bpmnElement="A_name">
+        <dc:Bounds x="550" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_left2_di" bpmnElement="A_left2">
+        <dc:Bounds x="762" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="804" y="106" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_take_di" bpmnElement="A_take">
+        <dc:Bounds x="1870" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_gwHot_di" bpmnElement="A_gwHot" isMarkerVisible="true">
+        <dc:Bounds x="2075" y="95" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2045" y="149" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_endNoHot_di" bpmnElement="A_endNoHot">
+        <dc:Bounds x="2082" y="40" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2124" y="44" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_wait_di" bpmnElement="A_wait">
+        <dc:Bounds x="2200" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_get_di" bpmnElement="A_get">
+        <dc:Bounds x="2365" y="88" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="A_endG_di" bpmnElement="A_endG">
+        <dc:Bounds x="2577" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2540" y="142" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_ask_di" bpmnElement="B_ask">
+        <dc:Bounds x="550" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_gwStock_di" bpmnElement="B_gwStock" isMarkerVisible="true">
+        <dc:Bounds x="755" y="495" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="725" y="549" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_split_di" bpmnElement="B_split">
+        <dc:Bounds x="920" y="495" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="890" y="549" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_shelf_di" bpmnElement="B_shelf">
+        <dc:Bounds x="1045" y="433" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_gwHot_di" bpmnElement="B_gwHot" isMarkerVisible="true">
+        <dc:Bounds x="1250" y="495" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1220" y="461" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_noHot_di" bpmnElement="B_noHot">
+        <dc:Bounds x="1257" y="564" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1299" y="568" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_heat_di" bpmnElement="B_heat">
+        <dc:Bounds x="1375" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_and_di" bpmnElement="B_and">
+        <dc:Bounds x="2240" y="495" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2210" y="549" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_give_di" bpmnElement="B_give">
+        <dc:Bounds x="2365" y="488" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="B_end_di" bpmnElement="B_end">
+        <dc:Bounds x="2577" y="502" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2540" y="542" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_punch_di" bpmnElement="K_punch">
+        <dc:Bounds x="1210" y="288" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_gwPay_di" bpmnElement="K_gwPay" isMarkerVisible="true">
+        <dc:Bounds x="1415" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1471" y="306" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_cash_di" bpmnElement="K_cash">
+        <dc:Bounds x="1540" y="243" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_card_di" bpmnElement="K_card">
+        <dc:Bounds x="1540" y="333" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_join_di" bpmnElement="K_join" isMarkerVisible="true">
+        <dc:Bounds x="1745" y="295" width="50" height="50" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1715" y="349" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_receipt_di" bpmnElement="K_receipt">
+        <dc:Bounds x="1870" y="288" width="130" height="64" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="K_end_di" bpmnElement="K_end">
+        <dc:Bounds x="2082" y="302" width="36" height="36" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2045" y="342" width="110" height="27" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="f_A_start_A_queue_di" bpmnElement="f_A_start_A_queue">
+        <di:waypoint x="138" y="120" />
+        <di:waypoint x="220" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_queue_A_gwWait_di" bpmnElement="f_A_queue_A_gwWait">
+        <di:waypoint x="350" y="120" />
+        <di:waypoint x="425" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_gwWait_A_left1_di" bpmnElement="f_A_gwWait_A_left1">
+        <di:waypoint x="450" y="95" />
+        <di:waypoint x="450" y="76" />
+        <bpmndi:BPMNLabel><dc:Bounds x="456" y="77" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_gwWait_A_name_di" bpmnElement="f_A_gwWait_A_name">
+        <di:waypoint x="475" y="120" />
+        <di:waypoint x="550" y="120" />
+        <bpmndi:BPMNLabel><dc:Bounds x="481" y="102" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_name_B_ask_di" bpmnElement="f_A_name_B_ask">
+        <di:waypoint x="615" y="152" />
+        <di:waypoint x="615" y="488" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_ask_B_gwStock_di" bpmnElement="f_B_ask_B_gwStock">
+        <di:waypoint x="680" y="520" />
+        <di:waypoint x="755" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_gwStock_A_left2_di" bpmnElement="f_B_gwStock_A_left2">
+        <di:waypoint x="780" y="495" />
+        <di:waypoint x="780" y="138" />
+        <bpmndi:BPMNLabel><dc:Bounds x="786" y="477" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_gwStock_B_split_di" bpmnElement="f_B_gwStock_B_split">
+        <di:waypoint x="805" y="520" />
+        <di:waypoint x="920" y="520" />
+        <bpmndi:BPMNLabel><dc:Bounds x="811" y="502" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_split_B_shelf_di" bpmnElement="f_B_split_B_shelf">
+        <di:waypoint x="945" y="495" />
+        <di:waypoint x="945" y="465" />
+        <di:waypoint x="1045" y="465" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_split_B_gwHot_di" bpmnElement="f_B_split_B_gwHot">
+        <di:waypoint x="970" y="520" />
+        <di:waypoint x="1250" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_shelf_K_punch_di" bpmnElement="f_B_shelf_K_punch">
+        <di:waypoint x="1175" y="465" />
+        <di:waypoint x="1275" y="465" />
+        <di:waypoint x="1275" y="352" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_gwHot_B_noHot_di" bpmnElement="f_B_gwHot_B_noHot">
+        <di:waypoint x="1275" y="545" />
+        <di:waypoint x="1275" y="564" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1281" y="527" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_gwHot_B_heat_di" bpmnElement="f_B_gwHot_B_heat">
+        <di:waypoint x="1300" y="520" />
+        <di:waypoint x="1375" y="520" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1306" y="502" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_heat_B_and_di" bpmnElement="f_B_heat_B_and">
+        <di:waypoint x="1505" y="520" />
+        <di:waypoint x="2240" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_punch_K_gwPay_di" bpmnElement="f_K_punch_K_gwPay">
+        <di:waypoint x="1340" y="320" />
+        <di:waypoint x="1415" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_gwPay_K_cash_di" bpmnElement="f_K_gwPay_K_cash">
+        <di:waypoint x="1440" y="295" />
+        <di:waypoint x="1440" y="275" />
+        <di:waypoint x="1540" y="275" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1446" y="277" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_gwPay_K_card_di" bpmnElement="f_K_gwPay_K_card">
+        <di:waypoint x="1440" y="345" />
+        <di:waypoint x="1440" y="365" />
+        <di:waypoint x="1540" y="365" />
+        <bpmndi:BPMNLabel><dc:Bounds x="1446" y="327" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_cash_K_join_di" bpmnElement="f_K_cash_K_join">
+        <di:waypoint x="1670" y="275" />
+        <di:waypoint x="1770" y="275" />
+        <di:waypoint x="1770" y="295" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_card_K_join_di" bpmnElement="f_K_card_K_join">
+        <di:waypoint x="1670" y="365" />
+        <di:waypoint x="1770" y="365" />
+        <di:waypoint x="1770" y="345" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_join_K_receipt_di" bpmnElement="f_K_join_K_receipt">
+        <di:waypoint x="1795" y="320" />
+        <di:waypoint x="1870" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_receipt_K_end_di" bpmnElement="f_K_receipt_K_end">
+        <di:waypoint x="2000" y="320" />
+        <di:waypoint x="2082" y="320" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_K_receipt_A_take_di" bpmnElement="f_K_receipt_A_take">
+        <di:waypoint x="1935" y="288" />
+        <di:waypoint x="1935" y="152" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_take_A_gwHot_di" bpmnElement="f_A_take_A_gwHot">
+        <di:waypoint x="2000" y="120" />
+        <di:waypoint x="2075" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_gwHot_A_endNoHot_di" bpmnElement="f_A_gwHot_A_endNoHot">
+        <di:waypoint x="2100" y="95" />
+        <di:waypoint x="2100" y="76" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2106" y="77" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_gwHot_A_wait_di" bpmnElement="f_A_gwHot_A_wait">
+        <di:waypoint x="2125" y="120" />
+        <di:waypoint x="2200" y="120" />
+        <bpmndi:BPMNLabel><dc:Bounds x="2131" y="102" width="40" height="14" /></bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_wait_B_and_di" bpmnElement="f_A_wait_B_and">
+        <di:waypoint x="2265" y="152" />
+        <di:waypoint x="2265" y="495" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_and_B_give_di" bpmnElement="f_B_and_B_give">
+        <di:waypoint x="2290" y="520" />
+        <di:waypoint x="2365" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_give_A_get_di" bpmnElement="f_B_give_A_get">
+        <di:waypoint x="2430" y="488" />
+        <di:waypoint x="2430" y="152" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_A_get_A_endG_di" bpmnElement="f_A_get_A_endG">
+        <di:waypoint x="2495" y="120" />
+        <di:waypoint x="2577" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="f_B_give_B_end_di" bpmnElement="f_B_give_B_end">
+        <di:waypoint x="2495" y="520" />
+        <di:waypoint x="2577" y="520" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Ann_1_di" bpmnElement="Ann_1">
+        <dc:Bounds x="40" y="650" width="300" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Assoc_1_di" bpmnElement="Assoc_1">
+        <di:waypoint x="285" y="152" />
+        <di:waypoint x="60" y="650" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Ann_2_di" bpmnElement="Ann_2">
+        <dc:Bounds x="370" y="650" width="300" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Assoc_2_di" bpmnElement="Assoc_2">
+        <di:waypoint x="1440" y="552" />
+        <di:waypoint x="390" y="650" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Ann_3_di" bpmnElement="Ann_3">
+        <dc:Bounds x="700" y="650" width="300" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Assoc_3_di" bpmnElement="Assoc_3">
+        <di:waypoint x="780" y="545" />
+        <di:waypoint x="720" y="650" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Ann_4_di" bpmnElement="Ann_4">
+        <dc:Bounds x="1030" y="650" width="300" height="70" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Assoc_4_di" bpmnElement="Assoc_4">
+        <di:waypoint x="1605" y="307" />
+        <di:waypoint x="1050" y="650" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
